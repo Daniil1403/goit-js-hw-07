@@ -25,7 +25,19 @@ const render = () => {
  refs.galleryEl.insertAdjacentHTML('beforeend', list);
 };
 
-const actionItem = (title) => {
+//const actionItem = (title) => {
+//console.log(title);
+//};
+
+const handleImgClick = (e) => {
+ e.preventDefault();
+
+ if (e.target === e.currentTarget) return;
+
+ const parent = e.target.closest('.gallery__item');
+ //const action = e.target.dataset.source;
+ //const title = parent.dataset.title;
+
  const instance = basicLightbox.create(`
     <div class="modal">
         <p>
@@ -37,25 +49,13 @@ const actionItem = (title) => {
 
  instance.show();
 
- console.log(title);
-};
+ //switch (action) {
+ //case '${original}':
+ //actionItem(title);
+ //break;
+ //}
 
-const handleImgClick = (e) => {
- e.preventDefault();
-
- if (e.target === e.currentTarget) return;
-
- const parent = e.target.closest('.gallery__item');
- const action = e.target.dataset.source;
- const title = parent.dataset.title;
-
- switch (action) {
-  case '${original}':
-   actionItem(title);
-   break;
- }
-
- console.log(action, title);
+ //console.log(action, title);
 };
 
 render();
