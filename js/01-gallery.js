@@ -1,8 +1,9 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
+let items = galleryItems;
 
 const galleryItemsTamplate = ({ preview, original, description }) =>
- `<div class="gallery__item">
+ `<div data-title="${description}" class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img 
       class="gallery__image"
@@ -18,20 +19,50 @@ const refs = {
 };
 
 const render = () => {
- const list = galleryItems
-  .map((galleryItem) => galleryItemsTamplate(galleryItem))
-  .join('');
+ const list = items.map(galleryItemsTamplate).join('');
 
  refs.galleryEl.innerHTML = '';
  refs.galleryEl.insertAdjacentHTML('beforeend', list);
 };
 
-const handleImgClick = (e) => {
- console.log(e.target.dataset.source);
- console.log(e.currentTarget);
+const actionItem = (title) => {
+ const instance = basicLightbox.create(`
+    <div class="modal">
+        <p>
+            Your first lightbox with just a few lines of code.
+            Yes, it's really that simple.
+        </p>
+    </div>
+`);
+
+ instance.show();
+
+ console.log(title);
 };
 
-//console.log(galleryItems);
+const handleImgClick = (e) => {
+ e.preventDefault();
+
+ if (e.target === e.currentTarget) return;
+
+ const parent = e.target.closest('.gallery__item');
+ const action = e.target.dataset.source;
+ const title = parent.dataset.title;
+
+ switch (action) {
+  case '${original}':
+   actionItem(title);
+   break;
+ }
+
+ console.log(action, title);
+};
+
 render();
 
 refs.galleryEl.addEventListener('click', handleImgClick);
+window.addEventListener('Escape', function (e) {
+ if (instance.visible()) {
+  instance.close;
+ }
+});
