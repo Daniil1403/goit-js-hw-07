@@ -25,43 +25,28 @@ const render = () => {
  refs.galleryEl.insertAdjacentHTML('beforeend', list);
 };
 
-//const actionItem = (title) => {
-//console.log(title);
-//};
-
 const handleImgClick = (e) => {
  e.preventDefault();
 
- if (e.target === e.currentTarget) return;
+ const activImage = e.target;
+
+ if (activImage === e.currentTarget) return;
 
  const parent = e.target.closest('.gallery__item');
- //const action = e.target.dataset.source;
- //const title = parent.dataset.title;
 
  const instance = basicLightbox.create(`
     <div class="modal">
-        <p>
-            Your first lightbox with just a few lines of code.
-            Yes, it's really that simple.
-        </p>
+        <img src='${activImage.dataset.source}'
     </div>
 `);
 
  instance.show();
-
- //switch (action) {
- //case '${original}':
- //actionItem(title);
- //break;
- //}
-
- //console.log(action, title);
 };
 
 render();
 
 refs.galleryEl.addEventListener('click', handleImgClick);
-window.addEventListener('Escape', function (e) {
+window.addEventListener('keydown', function (e) {
  if (instance.visible()) {
   instance.close;
  }
