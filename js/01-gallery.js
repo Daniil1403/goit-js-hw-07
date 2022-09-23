@@ -41,13 +41,15 @@ const handleImgClick = (e) => {
 `);
 
  instance.show();
+
+ window.addEventListener('keydown', closeModal);
+ function closeModal(e) {
+  if (e.code === 'Escape') {
+   instance.close();
+  }
+ }
 };
 
 render();
 
 refs.galleryEl.addEventListener('click', handleImgClick);
-window.addEventListener('keydown', function (e) {
- if (instance.visible()) {
-  instance.close;
- }
-});
