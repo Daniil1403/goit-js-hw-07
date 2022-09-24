@@ -1,44 +1,28 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-let items = galleryItems;
 
-const galleryItemsTamplate = ({ preview, original, description }) =>
- `<a class="gallery__item" href="${original}">
-  <img class="gallery__image" src="${preview}" alt="Image ${description}" />
+console.log(galleryItems);
+const gallery = document.querySelector('.gallery');
+
+const imageMarkup = creatSrtElmGallImg(galleryItems);
+
+gallery.insertAdjacentHTML('beforeend', imageMarkup);
+
+function creatSrtElmGallImg(galleryItems) {
+ return galleryItems
+  .map(({ preview, original, description }) => {
+   return `<a class="gallery__item" onclick="event.preventDefault()"
+     href="${original}">
+  <img class="gallery__image"
+   src="${preview}"
+    alt="${description}" />
 </a>`;
+  })
+  .join('');
+}
 
-const refs = {
- galleryEl: document.querySelector('.gallery'),
-};
-
-const render = () => {
- const list = items.map(galleryItemsTamplate).join('');
-
- refs.galleryEl.innerHTML = '';
- refs.galleryEl.insertAdjacentHTML('beforeend', list);
-};
-
-const handleImgClick = (e) => {
- e.preventDefault();
-
- const activImage = e.target;
-
- if (activImage === e.currentTarget) return;
-
- const parent = e.target.closest('.gallery__item');
-
- var lightbox = new SimpleLightbox('.gallery a', {
-  /* options */
- });
-
- window.addEventListener('keydown', closeModal);
- function closeModal(e) {
-  if (e.code === 'Escape') {
-   instance.close();
-  }
- }
-};
-
-render();
-
-refs.galleryEl.addEventListener('click', handleImgClick);
+const lightbox = new SimpleLightbox('.gallery a', {
+ captionsData: 'alt',
+ captionDelay: 250,
+ overlayOpacity: 0.7,
+});
