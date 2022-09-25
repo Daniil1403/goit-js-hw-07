@@ -35,9 +35,7 @@ const handleImgClick = (e) => {
  const parent = e.target.closest('.gallery__item');
 
  const instance = basicLightbox.create(`
-    <div class="modal">
-        <img src='${activImage.dataset.source}'
-    </div>
+        <img src='${activImage.dataset.source}'</img>
 `);
 
  instance.show();
